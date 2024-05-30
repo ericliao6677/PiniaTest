@@ -27,12 +27,13 @@ export const useShopStore = defineStore('shop', () => {
   });
 
   const addToCart = (productId) => {
-    const item = cart.value.find((item) => item.productId === productId);
-    if (item) {
-      item.quantity++;
-    } else {
-      this.cart.push({ productId, quantity: 1 });
-    }
+    console.log(productId)
+    // const item = cart.value.find((item) => item.productId === productId);
+    // if (item) {
+    //   item.quantity++;
+    // } else {
+    //   this.cart.push({ productId, quantity: 1 });
+    // }
   };
   const removeFromCart = (productId) => {
     const itemIndex = cart.value.findIndex((item) => item.productId === productId);
