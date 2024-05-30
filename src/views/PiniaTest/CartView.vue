@@ -1,13 +1,20 @@
 <script setup>
+import { computed } from 'vue';
 import { useShopStore } from '../../stores/shopStore';
 const shopStore = useShopStore();
-const cartItems = () => { shopStore.cartItems };
-const cartTotal = () => { shopStore.cartTotal };
-const removeFromCart = (id) => { shopStore.removeFromCart(id) };
-const updateQuantity = (id, quantity) => { shopStore.updateQuantity(id, quantity) };
+const cartItems = computed(() => shopStore.cartItems);
+const cartTotal = computed(() => shopStore.cartTotal);
+
+const removeFromCart = (id) => {
+  shopStore.removeFromCart(id);
+};
+const updateQuantity = (id, quantity) => {
+  shopStore.updateQuantity(id, quantity);
+};
 </script>
 <template>
   <div class="container mt-5">
+    <h5>Cart List</h5>
     <table class="table table-striped">
       <thead class="table-light">
         <tr>
@@ -25,15 +32,22 @@ const updateQuantity = (id, quantity) => { shopStore.updateQuantity(id, quantity
           <td>{{ item.name }}</td>
           <td>{{ item.price }}</td>
           <td>{{ item.quantity }}</td>
-          <td><input type="number" @input="updateQuantity(item.id, item.quantity)" /></td>
+          <td>
+            <input
+              type="number"
+              @input="updateQuantity(item.id, item.quantity)"
+              v-model="item.quantity"
+            />
+            {{ item.quantity }}
+          </td>
           <td><button class="btn btn-primary" @click="removeFromCart(item.id)">移除</button></td>
         </tr>
       </tbody>
     </table>
     <div>
       <h5>totol: {{ cartTotal }}</h5>
+      <p>{{ cartItems }}</p>
     </div>
   </div>
-
 </template>
 <style></style>

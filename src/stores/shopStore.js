@@ -27,25 +27,28 @@ export const useShopStore = defineStore('shop', () => {
   });
 
   const addToCart = (productId) => {
-    console.log(productId)
-    // const item = cart.value.find((item) => item.productId === productId);
-    // if (item) {
-    //   item.quantity++;
-    // } else {
-    //   this.cart.push({ productId, quantity: 1 });
-    // }
+    const item = cart.value.find((item) => item.productId === productId);
+    if (item) {
+      item.quantity++;
+    } else {
+      cart.value.push({ productId, quantity: 1 });
+    }
+    console.log(cart.value);
   };
   const removeFromCart = (productId) => {
     const itemIndex = cart.value.findIndex((item) => item.productId === productId);
     if (itemIndex > -1) {
-      this.cart.splice(itemIndex, 1);
+      cart.value.splice(itemIndex, 1);
     }
   };
   const updateQuantity = (productId, quantity) => {
     const item = cart.value.find((item) => item.productId === productId);
+
     if (item) {
       item.quantity = quantity;
     }
+    console.log(item.quantity);
+    console.log(cartItems.value);
   };
   const clearCart = () => {
     cart.value = [];

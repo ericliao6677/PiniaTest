@@ -1,19 +1,22 @@
 <script setup>
-import { useShopStore } from '../../stores/shopStore'
+import { computed } from 'vue';
+import { useShopStore } from '../../stores/shopStore';
 const shopStore = useShopStore();
-const addToCart = (id) => { shopStore.addToCart(id) };
-const test = (item) => { console.log(item) }
-const products = shopStore.products
-
+const addToCart = (id) => {
+  shopStore.addToCart(id);
+};
+const carts = computed(() => shopStore.cart);
+const products = shopStore.products;
 </script>
 <template>
   <div>
-
     <div class="container mt-5">
-      <div class="d-flex justify-content-between ">
+      <div class="d-flex justify-content-between">
         <h5>Product List</h5>
 
-        <router-link to="/cart"><button class="btn btn-success">查看購物車</button></router-link>
+        <router-link to="/cart"
+          ><button class="btn btn-success">查看購物車 {{ carts.length }}</button></router-link
+        >
       </div>
 
       <table class="table table-striped">
